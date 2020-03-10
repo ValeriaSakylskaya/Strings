@@ -2,166 +2,127 @@ package com.task;
 
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class WorkWithObjectString {
-    private String myString ;
-    private String ResultString;
-    private String regex ;
-    private String replacement;
-    private String Temp;
-    Scanner in = new Scanner(System.in);
+    private static String resultString;
+    private static String regex;
+    private static String replacement;
+    private static String Temp;
+    private static Scanner in = new Scanner(System.in);
 
-    void ReplaceAwithAB ()
-    {
-        myString = "   Replace all characters 'a' with 'ab' ";
+    public static void appendSymbolAToB() {
+        String userString = requestStringFromUser();
         regex = "([a])";
         replacement = "ab";
-        System.out.println("first text : " + myString);
-        ResultString = myString.replaceAll(regex,replacement);
-        System.out.println("result text : " + ResultString);
+        System.out.println("first text : " + userString);
+        resultString = userString.replaceAll(regex, replacement);
+        System.out.println("result text : " + resultString);
     }
-    void CheckPolidrom ()
-    {
-     System.out.print("Enter the word ");
-     myString = in.nextLine();
-     System.out.println(" This word " + Palindrom(myString) + " palindrom");
-    }
-    private static boolean Palindrom ( String st)
-    {
-        boolean result;
-       result= st.equalsIgnoreCase(new StringBuilder(st).reverse().toString());
 
-        return result;
+    public static void isWordPalindrome() {
+        String userInputString = requestStringFromUser();
+        boolean isPalindrome = userInputString.equalsIgnoreCase(new StringBuilder(userInputString).reverse().toString());
+        System.out.println("Is word Palindrome: " + isPalindrome);
     }
-    void Countletters ()
-    {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
-        System.out.println(" Count lowercase letters = " + CountLowerCase(myString));
-        System.out.println(" Count uppercase letters = " + CountUpperCase(myString));
+
+    public static void countOfNumbersUppercaseAndLowercaseLetters() {
+        String userString = requestStringFromUser();
+        System.out.println(" Count lowercase letters = " + CountLowercaseLetters(userString));
+        System.out.println(" Count uppercase letters = " + CountUppercaseLetters(userString));
     }
-    private static long CountLowerCase ( String s)
-    {
+
+    private static long CountLowercaseLetters(String s) {
         long count = 0;
-
-         count = s.chars().filter((st) -> Character.isLowerCase(st)).count();
+        count = s.chars().filter((st) -> Character.isLowerCase(st)).count();
         return count;
     }
-    private static long CountUpperCase ( String s)
-    {
-        long count = 0;
 
+    private static long CountUppercaseLetters(String s) {
+        long count = 0;
         count = s.chars().filter((st) -> Character.isUpperCase(st)).count();
         return count;
     }
-    void DeleteAllSpace ()
-    {
+
+    private static String requestStringFromUser() {
         System.out.print("Enter the text ");
-        myString = in.nextLine();
-        myString = myString.trim();
+        return in.nextLine();
+    }
+
+    public static void deleteAllDuplicate() {
+        String userString = requestStringFromUser();
+        userString = userString.trim();
         regex = "\\s";
         replacement = "";
-        ResultString = myString.replaceAll(regex,replacement);
-        System.out.println(ResultString);
-
+        resultString = userString.replaceAll(regex, replacement);
+        resultString = resultString.replaceAll("([a-z])\\1", "$1");
+        System.out.println(resultString);
     }
-    void RepeatRowWithDuplicate ()
-    {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
+
+    public static void repeatEachCharacter() {
+        String userString = requestStringFromUser();
         StringBuilder builder = new StringBuilder();
-        for ( int i = 0; i < myString.length(); i++)
-        {
-
-            builder.append(myString.charAt(i));
-            builder.append(myString.charAt(i));
-
+        for (int i = 0; i < userString.length(); i++) {
+            builder.append(userString.charAt(i));
+            builder.append(userString.charAt(i));
         }
-        ResultString= builder.toString();
-        System.out.println(ResultString);
+        resultString = builder.toString();
+        System.out.println(resultString);
     }
-    void CountALetters()
-    {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
-        System.out.println("count: " + CountA(myString));
-    }
-    private static  long CountA( String s)
-    {
+
+    public static void countTheNumberOfCharactersA() {
+        String userString = requestStringFromUser();
         long count;
-        count = s.chars().filter( cn -> cn =='a').count();
-        return count;
+        count = userString.chars().filter(cn -> cn == 'a').count();
+        System.out.println("count A in string: " + count);
     }
-    void CountTheSentenceInTheText ()
-    {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
-        System.out.println( CountSentence(myString));
-    }
-    private int  CountSentence( String s)
-    {
-        int count = s.split("[!?.]+").length;
-        return count;
-    }
-    void MostLongWord ()
-    {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
-        System.out.println( CountSentence(myString));
-        String[] word = myString.split(" ");
-        ResultString = "";
-        for(int i = 0; i < word.length; i ++){
-            if( word[i].length() >= ResultString.length()){
-                ResultString = word[i];
-            }
-        }
-        System.out.println(" word :" + ResultString);
-    }
-    void  LongestSpace() {
-        System.out.print("Enter the text ");
-        myString = in.nextLine();
-        final String  rexd =" ";
-        int count = 0;
-        int maxSpace = 0;
-        for (int i = 0; i < myString.length(); i++)
-        {
 
-            if( rexd.equals(Objects.toString( myString.charAt(i))))
-            {
-                count ++;
-            }
+    public static void CountTheSentenceInTheText() {
+        String userString = requestStringFromUser();
+        int count = userString.split("[!?.]+").length;
+        System.out.println(count);
+    }
+
+    public static void searchLongestWord() {
+        String userString = requestStringFromUser();
+        String[] word = userString.split(" ");
+        resultString = "";
+        for (int i = 0; i < word.length; i++) {
+            if (word[i].length() >= resultString.length())
+                resultString = word[i];
+        }
+        System.out.println(" word :" + resultString);
+    }
+
+    public static void getLargestNumberOfConsecutiveSpaces() {
+        String spaceCharacter = " ";
+        String userString = requestStringFromUser();
+        int intermediateSpaceCounter = 0;
+        int resultCount = 0;
+        for (int i = 0; i < userString.length(); i++) {
+            if (spaceCharacter.equals(Objects.toString(userString.charAt(i))))
+                intermediateSpaceCounter++;
             else
-                {
-                    count = 0;
-                }
-            if ( count > maxSpace)
-            {
-                maxSpace = count;
-            }
+                intermediateSpaceCounter = 0;
+            if (intermediateSpaceCounter > resultCount)
+                resultCount = intermediateSpaceCounter;
         }
-        System.out.print(" Longest space " + maxSpace);
+        System.out.print(" Longest space " + resultCount);
     }
 
-     void Cake ()
-     {
-         String Input = "информатика";
-         String Output = "торт";
-         String newWord = CreateWordFromAnother(Input, Output);
-         System.out.println(newWord);
-     }
-    private static String CreateWordFromAnother(String input, String output) {
-        StringBuilder builder= new StringBuilder();
-        for (int i = 0; i < output.length(); i++)
-        {
-            for (int j = 0; j < input.length(); j++)
-            {
+    public static void makeFromWordInformatikaTort() {
+        String Input = "информатика";
+        String Output = "торт";
+        String newWord = createWordFromAnother(Input, Output);
+        System.out.println(newWord);
+    }
+
+    private static String createWordFromAnother(String input, String output) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < output.length(); i++) {
+            for (int j = 0; j < input.length(); j++) {
                 if (output.charAt(i) == input.charAt(j))
-                {
                     builder.append(input.charAt(j));
-                }
             }
         }
         return builder.toString();
